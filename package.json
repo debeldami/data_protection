@@ -1,0 +1,24 @@
+{
+  "name": "ndpr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "nodemon app.js",
+    "build": "cd client && npm run build",
+    "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\"",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/debeldami/data_protection.git"
+  },
+  "author": "debel damilola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/debeldami/data_protection/issues"
+  },
+  "homepage": "https://github.com/debeldami/data_protection#readme"
+}
