@@ -28,7 +28,9 @@ const companySchema = new mongoose.Schema(
     },
     nopa: {
       type: Number,
-      required: [true, 'please specify the number of processing activities'],
+    },
+    cnopa: {
+      type: Number,
     },
     resetPasswordToken: String,
     resetPasswordExp: Date,
@@ -38,6 +40,13 @@ const companySchema = new mongoose.Schema(
 
 BootcampSchema.virtual('iopa', {
   ref: 'Iopa',
+  localField: '_id',
+  foreignField: 'company',
+  justOne: false,
+});
+
+BootcampSchema.virtual('staff', {
+  ref: 'Staff',
   localField: '_id',
   foreignField: 'company',
   justOne: false,
