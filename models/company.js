@@ -38,14 +38,14 @@ const companySchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-BootcampSchema.virtual('iopa', {
+companySchema.virtual('iopa', {
   ref: 'Iopa',
   localField: '_id',
   foreignField: 'company',
   justOne: false,
 });
 
-BootcampSchema.virtual('staff', {
+companySchema.virtual('staff', {
   ref: 'Staff',
   localField: '_id',
   foreignField: 'company',

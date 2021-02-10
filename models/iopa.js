@@ -5,12 +5,12 @@ const iopaSchema = new mongoose.Schema(
     company: {
       type: mongoose.Schema.ObjectId,
       ref: 'Company',
-      required: true,
+      required: [true, 'please specify company name'],
     },
     staff: {
       type: mongoose.Schema.ObjectId,
       ref: 'Staff',
-      required: true,
+      required: [true, 'please specify staff name'],
     },
     department: {
       type: String,
