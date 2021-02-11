@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const companySchema = new mongoose.Schema(
   {
@@ -51,5 +53,25 @@ companySchema.virtual('staff', {
   foreignField: 'company',
   justOne: false,
 });
+
+//password encryption using brcypt
+companySchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
+
+//Sign JWT and return
+companySchema.methods.getSignedJwtToken = function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES,
+  });
+};
+
+companySchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 module.exports = mongoose.model('Company', companySchema);
